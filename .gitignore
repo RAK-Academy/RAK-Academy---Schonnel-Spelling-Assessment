@@ -1,0 +1,9 @@
+.clasprc.json
+.clasprc.*.json
+.env
+.env.*
+node_modules/
+__pycache__/
+private-apps-script/
+private-backup/
+_site/
