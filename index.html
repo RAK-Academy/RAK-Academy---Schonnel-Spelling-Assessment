@@ -5,30 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RAK Academy | Schonell Spelling Assessment</title>
   <style>
-    :root { font-family: system-ui, sans-serif; color: #182e3a; background: #f3f6f5; }
-    body { margin: 0; padding: 48px 20px; }
-    main { max-width: 620px; margin: 0 auto; background: white; padding: clamp(24px, 5vw, 48px); border-radius: 16px; box-shadow: 0 8px 30px #182e3a0a; }
-    img { max-width: 180px; height: auto; }
-    h1 { font-size: clamp(26px, 5vw, 36px); margin-top: 32px; }
-    p { line-height: 1.65; }
-    .launch { display: inline-block; padding: 14px 22px; color: white; background: #184f4b; border-radius: 8px; text-decoration: none; margin: 12px 0 28px; font-weight: 600; }
-    a:focus-visible { outline: 3px solid #be8e32; outline-offset: 4px; }
-    section { border-top: 1px solid #e2e8e6; padding-top: 20px; }
-    h2 { font-size: 20px; }
-    audio { width: 100%; }
+    :root { font-family: Arial, Helvetica, sans-serif; color: #2f3135; background: #f3f6fa; font-synthesis: none; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; padding: 20px; overflow-x: hidden; }
+    main { width: min(1460px, 100%); min-height: calc(100vh - 40px); margin: 0 auto; padding: 32px 38px; border-radius: 22px; background: #fff; box-shadow: 0 8px 28px rgba(37, 50, 68, .08); display: flex; flex-direction: column; }
+    .hero { text-align: center; }
+    .logo { width: 82px; height: 82px; object-fit: contain; }
+    h1 { margin: 12px 0 14px; color: #1f73e8; font-size: clamp(28px, 3vw, 40px); }
+    .intro { max-width: 760px; margin: 0 auto; color: #666b73; font-size: 18px; line-height: 1.55; }
+    .content { display: grid; grid-template-columns: 1.05fr 1fr; gap: 54px; margin-top: 48px; flex: 1; min-width: 0; }
+    .guidelines { padding-right: 48px; border-right: 1px solid #e0e4e9; }
+    h2 { margin: 0 0 10px; font-size: 25px; }
+    .subtext { color: #686d75; line-height: 1.5; margin: 0 0 26px; }
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { display: grid; grid-template-columns: 30px 1fr; gap: 12px; margin: 0 0 19px; line-height: 1.45; }
+    .icon { text-align: center; }
+    .signin h2 { color: #1f73e8; }
+    .signin p { color: #686d75; line-height: 1.55; }
+    .launch { display: block; width: 100%; margin-top: 20px; padding: 15px 20px; border-radius: 9px; background: #2476e8; color: #fff; text-align: center; text-decoration: none; font-size: 20px; font-weight: 700; }
+    .launch:hover { background: #1766d4; }
+    .launch:focus-visible { outline: 3px solid #f1b529; outline-offset: 4px; }
+    .signin-status { font-size: 15px; }
+    .privacy { margin-top: 34px; padding: 15px 18px; border: 1px solid #d7dce3; border-radius: 12px; background: #f8fafc; color: #5f6670; font-size: 14px; }
+    @media (max-width: 760px) {
+      body { padding: 0; }
+      main { min-height: 100vh; padding: 28px 22px; border-radius: 0; }
+      .content { grid-template-columns: 1fr; gap: 34px; margin-top: 38px; }
+      .guidelines { padding-right: 0; padding-bottom: 30px; border-right: 0; border-bottom: 1px solid #e0e4e9; }
+      .logo { width: 74px; height: 74px; }
+      h1 { font-size: 27px; line-height: 1.18; }
+      .intro { font-size: 16px; }
+      h2 { font-size: 22px; }
+      .guidelines, .signin, li span { min-width: 0; }
+    }
   </style>
 </head>
 <body>
   <main>
-    <img src="images/rak-logo.jpg" alt="RAK Academy">
-    <h1>Schonell Spelling Assessment</h1>
-    <p>Check that you can hear the recording, then open the assessment and follow your teacher’s instructions.</p>
-    <a class="launch" href="https://script.google.com/macros/s/AKfycbyvKeMwT1B9j5EIUXdZvH2wcZFKVup92bfAGNDWx-CaqrbxYdbG0AzofIeGe9oL-xjmYw/exec">Open assessment</a>
-    <section aria-labelledby="sound-heading">
-      <h2 id="sound-heading">Sound check</h2>
-      <p>Press play to check your headphones or speakers.</p>
-      <audio controls preload="none" aria-label="Sound check recording" src="audio/sound-check.mp3">Your browser does not support audio playback.</audio>
-    </section>
+    <header class="hero">
+      <img src="images/rak-logo.jpg" alt="RAK Academy logo" class="logo">
+      <h1>Schonell Spelling Assessment</h1>
+      <p class="intro">Welcome to the RAK Academy Schonell Spelling Assessment. Please sign in to access your spelling test.</p>
+    </header>
+    <div class="content">
+      <section class="guidelines" aria-labelledby="guidelines-heading">
+        <h2 id="guidelines-heading">Assessment Portal Guidelines</h2>
+        <p class="subtext">Please read these general guidelines before beginning your assigned tasks.</p>
+        <ul>
+          <li><span class="icon">🔑</span><span><strong>School Email:</strong> Sign in using your school email to access your personalised student dashboard.</span></li>
+          <li><span class="icon">📋</span><span><strong>Spelling Test:</strong> Your teacher will tell you when the assessment window is open.</span></li>
+          <li><span class="icon">⏱️</span><span><strong>Timer &amp; Focus:</strong> The spelling test is timed and will monitor tab focus. Close all other tabs before starting.</span></li>
+          <li><span class="icon">💾</span><span><strong>Auto-save:</strong> Your progress is saved automatically throughout the test.</span></li>
+          <li><span class="icon">🛡️</span><span><strong>Independent Work:</strong> Complete the assessment independently. Copying, pasting or leaving the active screen is recorded.</span></li>
+        </ul>
+        <div class="privacy">🔒 Assessment results are stored securely and reviewed by authorised school staff.</div>
+      </section>
+      <section class="signin" aria-labelledby="signin-heading">
+        <h2 id="signin-heading">RAK Academy Sign-In</h2>
+        <p>Use your <strong>@rakacademy.net</strong> Google account. If your browser has more than one Google account, choose your school account when prompted. Personal Google accounts cannot access the assessment.</p>
+        <a class="launch" href="https://script.google.com/macros/s/AKfycbyvKeMwT1B9j5EIUXdZvH2wcZFKVup92bfAGNDWx-CaqrbxYdbG0AzofIeGe9oL-xjmYw/exec">Choose RAK Academy Google Account</a>
+        <p class="signin-status">You will continue to the secure assessment portal.</p>
+      </section>
+    </div>
   </main>
 </body>
 </html>
