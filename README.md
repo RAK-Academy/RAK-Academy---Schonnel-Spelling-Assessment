@@ -1,6 +1,8 @@
 ﻿# RAK Academy – Schonell Spelling Assessment
 
-Public website: https://rak-academy.github.io/RAK-Academy---Schonnel-Spelling-Assessment/
+School launch address: https://spelling.rakacademy.org/
+
+GitHub Pages fallback: https://rak-academy.github.io/RAK-Academy---Schonnel-Spelling-Assessment/
 
 This repository publishes the assessment landing page, RAK Academy branding, and recorded audio assets through GitHub Pages.
 
