@@ -1,6 +1,6 @@
 ﻿# RAK Academy – Schonell Spelling Assessment
 
-School launch address: https://spelling.rakacademy.org/
+School launch address: https://spelling.rakacademy.net/
 
 GitHub Pages fallback: https://rak-academy.github.io/RAK-Academy---Schonnel-Spelling-Assessment/
 
