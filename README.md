@@ -1,4 +1,4 @@
-﻿# RAK Academy – Schonell Spelling Assessment
+# RAK Academy – Spelling Assessment
 
 School launch address: https://spelling.rakacademy.net/
 
