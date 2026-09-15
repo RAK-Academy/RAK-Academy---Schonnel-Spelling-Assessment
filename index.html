@@ -10,7 +10,11 @@
     :root { font-family: Arial, Helvetica, sans-serif; color: #2f3135; background: #f3f6fa; font-synthesis: none; }
     * { box-sizing: border-box; }
     body { margin: 0; min-height: 100vh; padding: 20px; overflow-x: hidden; }
-    main { width: min(1460px, 100%); min-height: calc(100vh - 40px); margin: 0 auto; padding: 32px 38px; border-radius: 22px; background: #fff; box-shadow: 0 8px 28px rgba(37, 50, 68, .08); display: flex; flex-direction: column; }
+    main { position: relative; width: min(1460px, 100%); min-height: calc(100vh - 40px); margin: 0 auto; padding: 32px 38px; border-radius: 22px; background: #fff; box-shadow: 0 8px 28px rgba(37, 50, 68, .08); display: flex; flex-direction: column; }
+    .language-switcher { position: absolute; top: 24px; right: 30px; display: flex; gap: 6px; direction: ltr; }
+    .language-btn { min-width: 48px; padding: 8px 10px; border: 1px solid #b9c5d6; border-radius: 8px; background: #fff; color: #31445f; font-weight: 700; cursor: pointer; }
+    .language-btn:hover { background: #edf4ff; }
+    .language-btn.active { border-color: #2476e8; background: #2476e8; color: #fff; }
     .hero { text-align: center; }
     .logo { width: 82px; height: 82px; object-fit: contain; }
     h1 { margin: 12px 0 14px; color: #1f73e8; font-size: clamp(28px, 3vw, 40px); }
@@ -29,11 +33,17 @@
     .launch:focus-visible { outline: 3px solid #f1b529; outline-offset: 4px; }
     .signin-status { font-size: 15px; }
     .privacy { margin-top: 34px; padding: 15px 18px; border: 1px solid #d7dce3; border-radius: 12px; background: #f8fafc; color: #5f6670; font-size: 14px; }
+    main[dir="rtl"] .content { direction: ltr; }
+    main[dir="rtl"] .guidelines,
+    main[dir="rtl"] .signin { direction: rtl; text-align: right; }
+    main[dir="rtl"] .guidelines { padding-right: 0; padding-left: 48px; border-right: 0; border-left: 1px solid #e0e4e9; }
     @media (max-width: 760px) {
       body { padding: 0; }
       main { min-height: 100vh; padding: 28px 22px; border-radius: 0; }
       .content { grid-template-columns: 1fr; gap: 34px; margin-top: 38px; }
       .guidelines { padding-right: 0; padding-bottom: 30px; border-right: 0; border-bottom: 1px solid #e0e4e9; }
+      main[dir="rtl"] .guidelines { padding-left: 0; border-left: 0; }
+      .language-switcher { position: static; justify-content: center; margin-bottom: 18px; }
       .logo { width: 74px; height: 74px; }
       h1 { font-size: 27px; line-height: 1.18; }
       .intro { font-size: 16px; }
@@ -43,32 +53,125 @@
   </style>
 </head>
 <body>
-  <main>
+  <main id="landingPage" dir="ltr">
+    <nav class="language-switcher" aria-label="Language">
+      <button type="button" class="language-btn active" data-language="eng" aria-pressed="true">ENG</button>
+      <button type="button" class="language-btn" data-language="ara" aria-pressed="false">ARA</button>
+      <button type="button" class="language-btn" data-language="rus" aria-pressed="false">RUS</button>
+    </nav>
     <header class="hero">
       <img src="images/rak-logo.jpg" alt="RAK Academy logo" class="logo">
-      <h1>Spelling Assessment</h1>
-      <p class="intro">Welcome to the RAK Academy Spelling Assessment. Please sign in to access your spelling results and test.</p>
+      <h1 id="landingTitle">Spelling Assessment</h1>
+      <p class="intro" id="landingIntro">Welcome to the RAK Academy Spelling Assessment. Please sign in to access your spelling results and test.</p>
     </header>
     <div class="content">
       <section class="guidelines" aria-labelledby="guidelines-heading">
         <h2 id="guidelines-heading">Assessment Portal Guidelines</h2>
-        <p class="subtext">Please read these general guidelines before beginning your assigned tasks.</p>
+        <p class="subtext" id="guidelinesIntro">Please read these general guidelines before beginning your assigned tasks.</p>
         <ul>
-          <li><span class="icon">🔑</span><span><strong>School Email:</strong> Sign in using your school email to access your personalised student dashboard.</span></li>
-          <li><span class="icon">📋</span><span><strong>Spelling Test:</strong> Your teacher will tell you when the assessment window is open.</span></li>
-          <li><span class="icon">⏱️</span><span><strong>Timer &amp; Focus:</strong> The spelling test is timed and will monitor tab focus. Close all other tabs before starting.</span></li>
-          <li><span class="icon">💾</span><span><strong>Auto-save:</strong> Your progress is saved automatically throughout the test.</span></li>
-          <li><span class="icon">🛡️</span><span><strong>Independent Work:</strong> Complete the assessment independently. Copying, pasting or leaving the active screen is recorded.</span></li>
+          <li><span class="icon">🔑</span><span id="guidelineEmail"><strong>School Email:</strong> Sign in using your school email to access your personalised student dashboard.</span></li>
+          <li><span class="icon">📋</span><span id="guidelineTest"><strong>Spelling Test:</strong> Your teacher will tell you when the assessment window is open.</span></li>
+          <li><span class="icon">⏱️</span><span id="guidelineTimer"><strong>Timer &amp; Focus:</strong> The spelling test is timed and will monitor tab focus. Close all other tabs before starting.</span></li>
+          <li><span class="icon">💾</span><span id="guidelineSave"><strong>Auto-save:</strong> Your progress is saved automatically throughout the test.</span></li>
+          <li><span class="icon">🛡️</span><span id="guidelineIndependent"><strong>Independent Work:</strong> Complete the assessment independently. Copying, pasting or leaving the active screen is recorded.</span></li>
         </ul>
-        <div class="privacy">🔒 Assessment results are stored securely and reviewed by authorised school staff.</div>
+        <div class="privacy" id="privacyMessage">🔒 Assessment results are stored securely and reviewed by authorised school staff.</div>
       </section>
       <section class="signin" aria-labelledby="signin-heading">
         <h2 id="signin-heading">RAK Academy Sign-In</h2>
-        <p>Use your <strong>@rakacademy.net</strong> Google account. If your browser has more than one Google account, choose your school account when prompted. Personal Google accounts cannot access the assessment.</p>
-        <a class="launch" href="https://script.google.com/macros/s/AKfycbyvKeMwT1B9j5EIUXdZvH2wcZFKVup92bfAGNDWx-CaqrbxYdbG0AzofIeGe9oL-xjmYw/exec">Choose RAK Academy Google Account</a>
-        <p class="signin-status">You will continue to the secure assessment portal.</p>
+        <p id="signinInstructions">Use your <strong>@rakacademy.net</strong> Google account. If your browser has more than one Google account, choose your school account when prompted. Personal Google accounts cannot access the assessment.</p>
+        <a id="launchLink" class="launch" href="https://script.google.com/macros/s/AKfycbyvKeMwT1B9j5EIUXdZvH2wcZFKVup92bfAGNDWx-CaqrbxYdbG0AzofIeGe9oL-xjmYw/exec?lang=eng">Choose RAK Academy Google Account</a>
+        <p class="signin-status" id="signinStatus">You will continue to the secure assessment portal.</p>
       </section>
     </div>
   </main>
+  <script>
+    const landingTranslations = {
+      eng: {
+        title: "Spelling Assessment",
+        intro: "Welcome to the RAK Academy Spelling Assessment. Please sign in to access your spelling results and test.",
+        guidelines: "Assessment Portal Guidelines",
+        guidelinesIntro: "Please read these general guidelines before beginning your assigned tasks.",
+        email: "<strong>School Email:</strong> Sign in using your school email to access your personalised student dashboard.",
+        test: "<strong>Spelling Test:</strong> Your teacher will tell you when the assessment window is open.",
+        timer: "<strong>Timer &amp; Focus:</strong> The spelling test is timed and will monitor tab focus. Close all other tabs before starting.",
+        save: "<strong>Auto-save:</strong> Your progress is saved automatically throughout the test.",
+        independent: "<strong>Independent Work:</strong> Complete the assessment independently. Copying, pasting or leaving the active screen is recorded.",
+        privacy: "🔒 Assessment results are stored securely and reviewed by authorised school staff.",
+        signin: "RAK Academy Sign-In",
+        signinInstructions: "Use your <strong>@rakacademy.net</strong> Google account. If your browser has more than one Google account, choose your school account when prompted. Personal Google accounts cannot access the assessment.",
+        button: "Choose RAK Academy Google Account",
+        status: "You will continue to the secure assessment portal."
+      },
+      ara: {
+        title: "تقييم الإملاء",
+        intro: "مرحبًا بكم في تقييم الإملاء بأكاديمية رأس الخيمة. يرجى تسجيل الدخول للوصول إلى نتائج الإملاء والاختبار.",
+        guidelines: "إرشادات بوابة التقييم",
+        guidelinesIntro: "يرجى قراءة هذه الإرشادات العامة قبل البدء بالمهام المطلوبة.",
+        email: "<strong>البريد الإلكتروني المدرسي:</strong> سجّل الدخول باستخدام بريدك الإلكتروني المدرسي للوصول إلى لوحة معلومات الطالب الخاصة بك.",
+        test: "<strong>اختبار الإملاء:</strong> سيخبرك معلمك عندما تكون فترة التقييم مفتوحة.",
+        timer: "<strong>الوقت والتركيز:</strong> اختبار الإملاء محدد بوقت، وسيتم رصد الانتقال إلى علامات تبويب أخرى. أغلق جميع علامات التبويب الأخرى قبل البدء.",
+        save: "<strong>الحفظ التلقائي:</strong> يُحفظ تقدمك تلقائيًا طوال الاختبار.",
+        independent: "<strong>العمل المستقل:</strong> أكمل التقييم بشكل مستقل. يتم تسجيل النسخ أو اللصق أو مغادرة الشاشة النشطة.",
+        privacy: "🔒 يتم تخزين نتائج التقييم بأمان ومراجعتها من قبل موظفي المدرسة المصرح لهم.",
+        signin: "تسجيل الدخول إلى أكاديمية رأس الخيمة",
+        signinInstructions: "استخدم حساب Google المدرسي الذي ينتهي بـ <strong>@rakacademy.net</strong>. إذا كان المتصفح مسجلاً بأكثر من حساب Google، فاختر حساب المدرسة عند مطالبتك. لا يمكن للحسابات الشخصية الوصول إلى التقييم.",
+        button: "اختر حساب Google الخاص بأكاديمية رأس الخيمة",
+        status: "ستنتقل إلى بوابة التقييم الآمنة."
+      },
+      rus: {
+        title: "Оценка правописания",
+        intro: "Добро пожаловать на оценивание правописания RAK Academy. Войдите, чтобы получить доступ к своим результатам и тесту.",
+        guidelines: "Инструкции по работе с порталом",
+        guidelinesIntro: "Прочитайте эти общие инструкции перед выполнением назначенных заданий.",
+        email: "<strong>Школьная почта:</strong> Войдите с помощью школьной электронной почты, чтобы открыть личную панель ученика.",
+        test: "<strong>Тест по правописанию:</strong> Учитель сообщит вам, когда откроется период оценивания.",
+        timer: "<strong>Время и внимание:</strong> Время теста ограничено, а переход на другие вкладки отслеживается. Перед началом закройте все остальные вкладки.",
+        save: "<strong>Автосохранение:</strong> Ваш прогресс автоматически сохраняется в течение всего теста.",
+        independent: "<strong>Самостоятельная работа:</strong> Выполняйте тест самостоятельно. Копирование, вставка и уход с активного экрана регистрируются.",
+        privacy: "🔒 Результаты оценивания хранятся в защищённом виде и доступны уполномоченным сотрудникам школы.",
+        signin: "Вход в RAK Academy",
+        signinInstructions: "Используйте школьный аккаунт Google <strong>@rakacademy.net</strong>. Если в браузере открыто несколько аккаунтов Google, выберите школьный аккаунт. Личные аккаунты Google не могут получить доступ к тесту.",
+        button: "Выбрать аккаунт Google RAK Academy",
+        status: "Вы перейдёте на защищённый портал оценивания."
+      }
+    };
+
+    function setLandingLanguage(language) {
+      const lang = landingTranslations[language] ? language : "eng";
+      const t = landingTranslations[lang];
+      const page = document.getElementById("landingPage");
+      page.dir = lang === "ara" ? "rtl" : "ltr";
+      document.documentElement.lang = lang === "ara" ? "ar" : (lang === "rus" ? "ru" : "en");
+      document.getElementById("landingTitle").textContent = t.title;
+      document.getElementById("landingIntro").textContent = t.intro;
+      document.getElementById("guidelines-heading").textContent = t.guidelines;
+      document.getElementById("guidelinesIntro").textContent = t.guidelinesIntro;
+      document.getElementById("guidelineEmail").innerHTML = t.email;
+      document.getElementById("guidelineTest").innerHTML = t.test;
+      document.getElementById("guidelineTimer").innerHTML = t.timer;
+      document.getElementById("guidelineSave").innerHTML = t.save;
+      document.getElementById("guidelineIndependent").innerHTML = t.independent;
+      document.getElementById("privacyMessage").textContent = t.privacy;
+      document.getElementById("signin-heading").textContent = t.signin;
+      document.getElementById("signinInstructions").innerHTML = t.signinInstructions;
+      document.getElementById("launchLink").textContent = t.button;
+      document.getElementById("signinStatus").textContent = t.status;
+      document.getElementById("launchLink").href = "https://script.google.com/macros/s/AKfycbyvKeMwT1B9j5EIUXdZvH2wcZFKVup92bfAGNDWx-CaqrbxYdbG0AzofIeGe9oL-xjmYw/exec?lang=" + lang;
+      document.querySelectorAll(".language-btn").forEach(function (button) {
+        const active = button.dataset.language === lang;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+      try { localStorage.setItem("rak_interface_language", lang); } catch (error) {}
+    }
+
+    document.querySelectorAll(".language-btn").forEach(function (button) {
+      button.addEventListener("click", function () { setLandingLanguage(button.dataset.language); });
+    });
+    let savedLanguage = "eng";
+    try { savedLanguage = localStorage.getItem("rak_interface_language") || "eng"; } catch (error) {}
+    setLandingLanguage(savedLanguage);
+  </script>
 </body>
 </html>
