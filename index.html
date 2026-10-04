@@ -12,7 +12,9 @@
     body { margin: 0; min-height: 100vh; padding: 20px; overflow-x: hidden; }
     main { position: relative; width: min(1460px, 100%); min-height: calc(100vh - 40px); margin: 0 auto; padding: 32px 38px; border-radius: 22px; background: #fff; box-shadow: 0 8px 28px rgba(37, 50, 68, .08); display: flex; flex-direction: column; }
     .language-switcher { position: absolute; top: 24px; right: 30px; display: flex; gap: 6px; direction: ltr; }
-    .language-btn { min-width: 48px; padding: 8px 10px; border: 1px solid #b9c5d6; border-radius: 8px; background: #fff; color: #31445f; font-weight: 700; cursor: pointer; }
+    .skip-link { position: absolute; left: 12px; top: -56px; z-index: 10; padding: 12px 16px; border-radius: 8px; background: #1f73e8; color: #fff; font-weight: 700; text-decoration: none; }
+    .skip-link:focus { top: 12px; }
+    .language-btn { min-width: 48px; min-height: 44px; padding: 8px 10px; border: 1px solid #b9c5d6; border-radius: 8px; background: #fff; color: #31445f; font-weight: 700; cursor: pointer; }
     .language-btn:hover { background: #edf4ff; }
     .language-btn.active { border-color: #2476e8; background: #2476e8; color: #fff; }
     .hero { text-align: center; }
@@ -32,7 +34,19 @@
     .launch:hover { background: #1766d4; }
     .launch:focus-visible { outline: 3px solid #f1b529; outline-offset: 4px; }
     .signin-status { font-size: 15px; }
+    .start-card { margin: 0 0 24px; padding: 20px; border: 2px solid #d7e5f8; border-radius: 12px; background: #f7fbff; }
+    .start-card h3 { margin: 0 0 10px; color: #174f9d; font-size: 19px; }
+    .start-steps { margin: 0; padding-left: 22px; color: #35465e; line-height: 1.55; }
+    .start-steps li { display: list-item; margin: 0 0 8px; }
+    .support-tools { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .secondary-button { min-height: 44px; padding: 10px 14px; border: 2px solid #1f73e8; border-radius: 8px; background: #fff; color: #174f9d; font: inherit; font-weight: 700; cursor: pointer; }
+    .secondary-button:hover { background: #edf4ff; }
+    .secondary-button:disabled { border-color: #71819a; background: #e8edf4; color: #526176; cursor: wait; }
+    .sound-status { min-height: 1.4em; margin: 10px 0 0; color: #35465e; }
     .privacy { margin-top: 34px; padding: 15px 18px; border: 1px solid #d7dce3; border-radius: 12px; background: #f8fafc; color: #5f6670; font-size: 14px; }
+    button:focus-visible, a:focus-visible { outline: 3px solid #f1b529; outline-offset: 3px; }
+    @media (prefers-contrast: more) { body { background: #fff; } main { box-shadow: none; border: 2px solid #222; } .start-card, .privacy { border-color: #222; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
     main[dir="rtl"] .content { direction: ltr; }
     main[dir="rtl"] .guidelines,
     main[dir="rtl"] .signin { direction: rtl; text-align: right; }
@@ -54,6 +68,7 @@
 </head>
 <body>
   <main id="landingPage" dir="ltr">
+    <a class="skip-link" href="#signIn">Skip to sign in</a>
     <nav class="language-switcher" aria-label="Language">
       <button type="button" class="language-btn active" data-language="eng" aria-pressed="true">ENG</button>
       <button type="button" class="language-btn" data-language="ara" aria-pressed="false">ARA</button>
@@ -72,14 +87,29 @@
         <ul>
           <li><span class="icon">🔑</span><span id="guidelineEmail"><strong>School Email:</strong> Sign in using your school email to access your personalised student dashboard.</span></li>
           <li><span class="icon">📋</span><span id="guidelineTest"><strong>Spelling Test:</strong> Your teacher will tell you when the assessment window is open.</span></li>
-          <li><span class="icon">⏱️</span><span id="guidelineTimer"><strong>Timer &amp; Focus:</strong> The spelling test is timed and will monitor tab focus. Close all other tabs before starting.</span></li>
+          <li><span class="icon">⏱️</span><span id="guidelineTimer"><strong>Timer &amp; Focus:</strong> The spelling test is timed. The timer keeps running if you leave the test page, so close all other tabs before starting.</span></li>
           <li><span class="icon">💾</span><span id="guidelineSave"><strong>Auto-save:</strong> Your progress is saved automatically throughout the test.</span></li>
           <li><span class="icon">🛡️</span><span id="guidelineIndependent"><strong>Independent Work:</strong> Complete the assessment independently. Copying, pasting or leaving the active screen is recorded.</span></li>
         </ul>
         <div class="privacy" id="privacyMessage">🔒 Assessment results are stored securely and reviewed by authorised school staff.</div>
       </section>
-      <section class="signin" aria-labelledby="signin-heading">
+      <section class="signin" id="signIn" aria-labelledby="signin-heading">
         <h2 id="signin-heading">RAK Academy Sign-In</h2>
+        <section class="start-card" aria-labelledby="start-heading">
+          <h3 id="start-heading">Before you start</h3>
+          <ol class="start-steps" id="startSteps">
+            <li>Put on headphones and make sure you can hear clearly.</li>
+            <li>Choose a quiet place and keep this tab open.</li>
+            <li>Listen to each word, type what you hear, then select Submit.</li>
+            <li>If you are unsure, choose “I don’t know” and continue.</li>
+          </ol>
+          <div class="support-tools">
+            <button type="button" class="secondary-button" id="soundCheck">Test my sound</button>
+            <button type="button" class="secondary-button" id="readInstructions">Read instructions aloud</button>
+          </div>
+          <p class="sound-status" id="soundStatus" role="status" aria-live="polite"></p>
+          <audio id="soundCheckAudio" preload="none" src="audio/sound-check.mp3"></audio>
+        </section>
         <p id="signinInstructions">Use your <strong>@rakacademy.net</strong> Google account. If your browser has more than one Google account, choose your school account when prompted. Personal Google accounts cannot access the assessment.</p>
         <a id="launchLink" class="launch" href="https://script.google.com/macros/s/AKfycbyvKeMwT1B9j5EIUXdZvH2wcZFKVup92bfAGNDWx-CaqrbxYdbG0AzofIeGe9oL-xjmYw/exec?lang=eng">Choose RAK Academy Google Account</a>
         <p class="signin-status" id="signinStatus">You will continue to the secure assessment portal.</p>
@@ -95,7 +125,7 @@
         guidelinesIntro: "Please read these general guidelines before beginning your assigned tasks.",
         email: "<strong>School Email:</strong> Sign in using your school email to access your personalised student dashboard.",
         test: "<strong>Spelling Test:</strong> Your teacher will tell you when the assessment window is open.",
-        timer: "<strong>Timer &amp; Focus:</strong> The spelling test is timed and will monitor tab focus. Close all other tabs before starting.",
+        timer: "<strong>Timer &amp; Focus:</strong> The spelling test is timed. The timer keeps running if you leave the test page, so close all other tabs before starting.",
         save: "<strong>Auto-save:</strong> Your progress is saved automatically throughout the test.",
         independent: "<strong>Independent Work:</strong> Complete the assessment independently. Copying, pasting or leaving the active screen is recorded.",
         privacy: "🔒 Assessment results are stored securely and reviewed by authorised school staff.",
@@ -111,7 +141,7 @@
         guidelinesIntro: "يرجى قراءة هذه الإرشادات العامة قبل البدء بالمهام المطلوبة.",
         email: "<strong>البريد الإلكتروني المدرسي:</strong> سجّل الدخول باستخدام بريدك الإلكتروني المدرسي للوصول إلى لوحة معلومات الطالب الخاصة بك.",
         test: "<strong>اختبار الإملاء:</strong> سيخبرك معلمك عندما تكون فترة التقييم مفتوحة.",
-        timer: "<strong>الوقت والتركيز:</strong> اختبار الإملاء محدد بوقت، وسيتم رصد الانتقال إلى علامات تبويب أخرى. أغلق جميع علامات التبويب الأخرى قبل البدء.",
+        timer: "<strong>الوقت والتركيز:</strong> اختبار الإملاء محدد بوقت. يستمر المؤقت في العمل إذا غادرت صفحة الاختبار، لذا أغلق جميع علامات التبويب الأخرى قبل البدء.",
         save: "<strong>الحفظ التلقائي:</strong> يُحفظ تقدمك تلقائيًا طوال الاختبار.",
         independent: "<strong>العمل المستقل:</strong> أكمل التقييم بشكل مستقل. يتم تسجيل النسخ أو اللصق أو مغادرة الشاشة النشطة.",
         privacy: "🔒 يتم تخزين نتائج التقييم بأمان ومراجعتها من قبل موظفي المدرسة المصرح لهم.",
@@ -127,7 +157,7 @@
         guidelinesIntro: "Прочитайте эти общие инструкции перед выполнением назначенных заданий.",
         email: "<strong>Школьная почта:</strong> Войдите с помощью школьной электронной почты, чтобы открыть личную панель ученика.",
         test: "<strong>Тест по правописанию:</strong> Учитель сообщит вам, когда откроется период оценивания.",
-        timer: "<strong>Время и внимание:</strong> Время теста ограничено, а переход на другие вкладки отслеживается. Перед началом закройте все остальные вкладки.",
+        timer: "<strong>Время и внимание:</strong> Время теста ограничено. Если вы покинете страницу теста, таймер продолжит идти, поэтому перед началом закройте все остальные вкладки.",
         save: "<strong>Автосохранение:</strong> Ваш прогресс автоматически сохраняется в течение всего теста.",
         independent: "<strong>Самостоятельная работа:</strong> Выполняйте тест самостоятельно. Копирование, вставка и уход с активного экрана регистрируются.",
         privacy: "🔒 Результаты оценивания хранятся в защищённом виде и доступны уполномоченным сотрудникам школы.",
@@ -143,7 +173,7 @@
         guidelinesIntro: "배정된 과제를 시작하기 전에 다음 안내를 읽어 주세요.",
         email: "<strong>학교 이메일:</strong> 개인 학생 대시보드에 접속하려면 학교 이메일로 로그인하세요.",
         test: "<strong>철자 시험:</strong> 평가 기간이 시작되면 선생님이 알려 드립니다.",
-        timer: "<strong>시간 및 집중:</strong> 철자 시험에는 제한 시간이 있으며 다른 탭으로 이동하는 것이 기록됩니다. 시작하기 전에 다른 모든 탭을 닫으세요.",
+        timer: "<strong>시간 및 집중:</strong> 철자 시험에는 제한 시간이 있습니다. 시험 페이지를 벗어나도 타이머는 계속 흐르므로 시작하기 전에 다른 모든 탭을 닫으세요.",
         save: "<strong>자동 저장:</strong> 시험을 보는 동안 진행 상황이 자동으로 저장됩니다.",
         independent: "<strong>독립 수행:</strong> 평가를 혼자서 완료하세요. 복사, 붙여넣기 또는 활성 화면을 벗어나는 행동이 기록됩니다.",
         privacy: "🔒 평가 결과는 안전하게 저장되며 권한이 있는 학교 직원만 검토합니다.",
@@ -154,9 +184,33 @@
       }
     };
 
+    const accessTranslations = {
+      eng: {
+        skip: "Skip to sign in", heading: "Before you start", sound: "Test my sound", read: "Read instructions aloud",
+        steps: ["Put on headphones and make sure you can hear clearly.", "Choose a quiet place and keep this tab open.", "Listen to each word, type what you hear, then select Submit.", "If you are unsure, choose “I don’t know” and continue."],
+        playingLabel: "Playing…", playing: "Playing the sound check. Can you hear the word?", soundProblem: "If you cannot hear it, check your headphones or ask your teacher for help.", reading: "Reading the instructions aloud."
+      },
+      ara: {
+        skip: "انتقل إلى تسجيل الدخول", heading: "قبل أن تبدأ", sound: "اختبر الصوت", read: "اقرأ التعليمات بصوت عالٍ",
+        steps: ["ضع سماعات الرأس وتأكد من سماع الصوت بوضوح.", "اختر مكانًا هادئًا وأبقِ علامة التبويب هذه مفتوحة.", "استمع إلى كل كلمة، واكتب ما تسمعه، ثم اختر إرسال.", "إذا لم تكن متأكدًا، اختر «لا أعرف» وتابع."],
+        playingLabel: "جارٍ التشغيل…", playing: "يتم تشغيل اختبار الصوت. هل تسمع الكلمة؟", soundProblem: "إذا لم تسمعها، تحقق من سماعات الرأس أو اطلب المساعدة من معلمك.", reading: "تتم قراءة التعليمات بصوت عالٍ."
+      },
+      rus: {
+        skip: "Перейти к входу", heading: "Перед началом", sound: "Проверить звук", read: "Прочитать инструкции вслух",
+        steps: ["Наденьте наушники и убедитесь, что звук слышен ясно.", "Выберите тихое место и не закрывайте эту вкладку.", "Прослушайте каждое слово, напечатайте то, что услышали, затем нажмите «Отправить».", "Если вы не уверены, выберите «Я не знаю» и продолжайте."],
+        playingLabel: "Воспроизведение…", playing: "Воспроизводится проверка звука. Вы слышите слово?", soundProblem: "Если вы не слышите его, проверьте наушники или обратитесь к учителю.", reading: "Инструкции читаются вслух."
+      },
+      kor: {
+        skip: "로그인으로 건너뛰기", heading: "시작하기 전에", sound: "소리 확인", read: "안내를 소리 내어 읽기",
+        steps: ["헤드폰을 착용하고 소리가 잘 들리는지 확인하세요.", "조용한 곳을 선택하고 이 탭을 열어 두세요.", "각 단어를 듣고 들린 단어를 입력한 뒤 제출을 선택하세요.", "잘 모르겠으면 ‘모르겠습니다’를 선택하고 계속하세요."],
+        playingLabel: "재생 중…", playing: "소리 확인을 재생합니다. 단어가 들리나요?", soundProblem: "들리지 않으면 헤드폰을 확인하거나 선생님에게 도움을 요청하세요.", reading: "안내를 소리 내어 읽습니다."
+      }
+    };
+
     function setLandingLanguage(language) {
       const lang = landingTranslations[language] ? language : "eng";
       const t = landingTranslations[lang];
+      const a = accessTranslations[lang];
       const page = document.getElementById("landingPage");
       page.dir = lang === "ara" ? "rtl" : "ltr";
       document.documentElement.lang = lang === "ara" ? "ar" : (lang === "rus" ? "ru" : (lang === "kor" ? "ko" : "en"));
@@ -174,7 +228,15 @@
       document.getElementById("signinInstructions").innerHTML = t.signinInstructions;
       document.getElementById("launchLink").textContent = t.button;
       document.getElementById("signinStatus").textContent = t.status;
-      document.getElementById("launchLink").href = "https://script.google.com/macros/s/AKfycbyvKeMwT1B9j5EIUXdZvH2wcZFKVup92bfAGNDWx-CaqrbxYdbG0AzofIeGe9oL-xjmYw/exec?lang=" + lang;
+      document.querySelector(".skip-link").textContent = a.skip;
+      document.getElementById("start-heading").textContent = a.heading;
+      document.getElementById("startSteps").innerHTML = a.steps.map(function (step) { return "<li>" + step + "</li>"; }).join("");
+      document.getElementById("soundCheck").textContent = a.sound;
+      document.getElementById("readInstructions").textContent = a.read;
+      // Google's account chooser opens first, so pupils signed in to several
+      // accounts pick their school one instead of being sent in with another.
+      document.getElementById("launchLink").href = "https://accounts.google.com/AccountChooser?continue=" +
+        encodeURIComponent("https://script.google.com/macros/s/AKfycbyvKeMwT1B9j5EIUXdZvH2wcZFKVup92bfAGNDWx-CaqrbxYdbG0AzofIeGe9oL-xjmYw/exec?lang=" + lang);
       document.querySelectorAll(".language-btn").forEach(function (button) {
         const active = button.dataset.language === lang;
         button.classList.toggle("active", active);
@@ -185,6 +247,43 @@
 
     document.querySelectorAll(".language-btn").forEach(function (button) {
       button.addEventListener("click", function () { setLandingLanguage(button.dataset.language); });
+    });
+    document.getElementById("soundCheck").addEventListener("click", function () {
+      const lang = document.documentElement.lang === "ar" ? "ara" : (document.documentElement.lang === "ru" ? "rus" : (document.documentElement.lang === "ko" ? "kor" : "eng"));
+      const a = accessTranslations[lang] || accessTranslations.eng;
+      const audio = document.getElementById("soundCheckAudio");
+      const button = document.getElementById("soundCheck");
+      let stuck = null;
+      const restoreSoundButton = function () {
+        clearTimeout(stuck);
+        button.disabled = false;
+        button.textContent = a.sound;
+      };
+      button.disabled = true;
+      button.textContent = a.playingLabel;
+      audio.currentTime = 0;
+      audio.onended = function () { restoreSoundButton(); document.getElementById("soundStatus").textContent = ""; };
+      // A sound that never loads must not leave the button stuck.
+      stuck = setTimeout(function () {
+        audio.pause();
+        restoreSoundButton();
+        document.getElementById("soundStatus").textContent = a.soundProblem;
+      }, 15000);
+      audio.onerror = function () { restoreSoundButton(); document.getElementById("soundStatus").textContent = a.soundProblem; };
+      audio.play().then(function () { document.getElementById("soundStatus").textContent = a.playing; }).catch(function () { restoreSoundButton(); document.getElementById("soundStatus").textContent = a.soundProblem; });
+    });
+    document.getElementById("readInstructions").addEventListener("click", function () {
+      const lang = document.documentElement.lang === "ar" ? "ara" : (document.documentElement.lang === "ru" ? "rus" : (document.documentElement.lang === "ko" ? "kor" : "eng"));
+      const a = accessTranslations[lang] || accessTranslations.eng;
+      const status = document.getElementById("soundStatus");
+      if (!("speechSynthesis" in window)) { status.textContent = a.soundProblem; return; }
+      status.textContent = a.reading;
+      window.speechSynthesis.cancel();
+      const message = new SpeechSynthesisUtterance(a.steps.join(" "));
+      message.lang = document.documentElement.lang;
+      // The "reading" message is cleared when reading stops.
+      message.onend = message.onerror = function () { if (status.textContent === a.reading) status.textContent = ""; };
+      window.speechSynthesis.speak(message);
     });
     let savedLanguage = "eng";
     try { savedLanguage = localStorage.getItem("rak_interface_language") || "eng"; } catch (error) {}
