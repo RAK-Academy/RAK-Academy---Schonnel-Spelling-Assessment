@@ -34,18 +34,9 @@
     .launch:hover { background: #1766d4; }
     .launch:focus-visible { outline: 3px solid #f1b529; outline-offset: 4px; }
     .signin-status { font-size: 15px; }
-    .start-card { margin: 0 0 24px; padding: 20px; border: 2px solid #d7e5f8; border-radius: 12px; background: #f7fbff; }
-    .start-card h3 { margin: 0 0 10px; color: #174f9d; font-size: 19px; }
-    .start-steps { margin: 0; padding-left: 22px; color: #35465e; line-height: 1.55; }
-    .start-steps li { display: list-item; margin: 0 0 8px; }
-    .support-tools { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-    .secondary-button { min-height: 44px; padding: 10px 14px; border: 2px solid #1f73e8; border-radius: 8px; background: #fff; color: #174f9d; font: inherit; font-weight: 700; cursor: pointer; }
-    .secondary-button:hover { background: #edf4ff; }
-    .secondary-button:disabled { border-color: #71819a; background: #e8edf4; color: #526176; cursor: wait; }
-    .sound-status { min-height: 1.4em; margin: 10px 0 0; color: #35465e; }
     .privacy { margin-top: 34px; padding: 15px 18px; border: 1px solid #d7dce3; border-radius: 12px; background: #f8fafc; color: #5f6670; font-size: 14px; }
     button:focus-visible, a:focus-visible { outline: 3px solid #f1b529; outline-offset: 3px; }
-    @media (prefers-contrast: more) { body { background: #fff; } main { box-shadow: none; border: 2px solid #222; } .start-card, .privacy { border-color: #222; } }
+    @media (prefers-contrast: more) { body { background: #fff; } main { box-shadow: none; border: 2px solid #222; } .privacy { border-color: #222; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
     main[dir="rtl"] .content { direction: ltr; }
     main[dir="rtl"] .guidelines,
@@ -95,21 +86,6 @@
       </section>
       <section class="signin" id="signIn" aria-labelledby="signin-heading">
         <h2 id="signin-heading">RAK Academy Sign-In</h2>
-        <section class="start-card" aria-labelledby="start-heading">
-          <h3 id="start-heading">Before you start</h3>
-          <ol class="start-steps" id="startSteps">
-            <li>Put on headphones and make sure you can hear clearly.</li>
-            <li>Choose a quiet place and keep this tab open.</li>
-            <li>Listen to each word, type what you hear, then select Submit.</li>
-            <li>If you are unsure, choose “I don’t know” and continue.</li>
-          </ol>
-          <div class="support-tools">
-            <button type="button" class="secondary-button" id="soundCheck">Test my sound</button>
-            <button type="button" class="secondary-button" id="readInstructions">Read instructions aloud</button>
-          </div>
-          <p class="sound-status" id="soundStatus" role="status" aria-live="polite"></p>
-          <audio id="soundCheckAudio" preload="none" src="audio/sound-check.mp3"></audio>
-        </section>
         <p id="signinInstructions">Enter the digits before @ in your school email and the password from your teacher. You do not need to sign in to Google.</p>
         <a id="launchLink" class="launch" href="https://script.google.com/macros/s/AKfycbyvKeMwT1B9j5EIUXdZvH2wcZFKVup92bfAGNDWx-CaqrbxYdbG0AzofIeGe9oL-xjmYw/exec?lang=eng">Open assessment</a>
         <p class="signin-status" id="signinStatus">You will continue to the secure assessment portal.</p>
@@ -184,33 +160,11 @@
       }
     };
 
-    const accessTranslations = {
-      eng: {
-        skip: "Skip to sign in", heading: "Before you start", sound: "Test my sound", read: "Read instructions aloud",
-        steps: ["Put on headphones and make sure you can hear clearly.", "Choose a quiet place and keep this tab open.", "Listen to each word, type what you hear, then select Submit.", "If you are unsure, choose “I don’t know” and continue."],
-        playingLabel: "Playing…", playing: "Playing the sound check. Can you hear the word?", soundProblem: "If you cannot hear it, check your headphones or ask your teacher for help.", reading: "Reading the instructions aloud."
-      },
-      ara: {
-        skip: "انتقل إلى تسجيل الدخول", heading: "قبل أن تبدأ", sound: "اختبر الصوت", read: "اقرأ التعليمات بصوت عالٍ",
-        steps: ["ضع سماعات الرأس وتأكد من سماع الصوت بوضوح.", "اختر مكانًا هادئًا وأبقِ علامة التبويب هذه مفتوحة.", "استمع إلى كل كلمة، واكتب ما تسمعه، ثم اختر إرسال.", "إذا لم تكن متأكدًا، اختر «لا أعرف» وتابع."],
-        playingLabel: "جارٍ التشغيل…", playing: "يتم تشغيل اختبار الصوت. هل تسمع الكلمة؟", soundProblem: "إذا لم تسمعها، تحقق من سماعات الرأس أو اطلب المساعدة من معلمك.", reading: "تتم قراءة التعليمات بصوت عالٍ."
-      },
-      rus: {
-        skip: "Перейти к входу", heading: "Перед началом", sound: "Проверить звук", read: "Прочитать инструкции вслух",
-        steps: ["Наденьте наушники и убедитесь, что звук слышен ясно.", "Выберите тихое место и не закрывайте эту вкладку.", "Прослушайте каждое слово, напечатайте то, что услышали, затем нажмите «Отправить».", "Если вы не уверены, выберите «Я не знаю» и продолжайте."],
-        playingLabel: "Воспроизведение…", playing: "Воспроизводится проверка звука. Вы слышите слово?", soundProblem: "Если вы не слышите его, проверьте наушники или обратитесь к учителю.", reading: "Инструкции читаются вслух."
-      },
-      kor: {
-        skip: "로그인으로 건너뛰기", heading: "시작하기 전에", sound: "소리 확인", read: "안내를 소리 내어 읽기",
-        steps: ["헤드폰을 착용하고 소리가 잘 들리는지 확인하세요.", "조용한 곳을 선택하고 이 탭을 열어 두세요.", "각 단어를 듣고 들린 단어를 입력한 뒤 제출을 선택하세요.", "잘 모르겠으면 ‘모르겠습니다’를 선택하고 계속하세요."],
-        playingLabel: "재생 중…", playing: "소리 확인을 재생합니다. 단어가 들리나요?", soundProblem: "들리지 않으면 헤드폰을 확인하거나 선생님에게 도움을 요청하세요.", reading: "안내를 소리 내어 읽습니다."
-      }
-    };
+    const skipTranslations = {"eng": "Skip to sign in", "ara": "انتقل إلى تسجيل الدخول", "rus": "Перейти к входу", "kor": "로그인으로 건너뛰기"};
 
     function setLandingLanguage(language) {
       const lang = landingTranslations[language] ? language : "eng";
       const t = landingTranslations[lang];
-      const a = accessTranslations[lang];
       const page = document.getElementById("landingPage");
       page.dir = lang === "ara" ? "rtl" : "ltr";
       document.documentElement.lang = lang === "ara" ? "ar" : (lang === "rus" ? "ru" : (lang === "kor" ? "ko" : "en"));
@@ -228,11 +182,7 @@
       document.getElementById("signinInstructions").innerHTML = t.signinInstructions;
       document.getElementById("launchLink").textContent = t.button;
       document.getElementById("signinStatus").textContent = t.status;
-      document.querySelector(".skip-link").textContent = a.skip;
-      document.getElementById("start-heading").textContent = a.heading;
-      document.getElementById("startSteps").innerHTML = a.steps.map(function (step) { return "<li>" + step + "</li>"; }).join("");
-      document.getElementById("soundCheck").textContent = a.sound;
-      document.getElementById("readInstructions").textContent = a.read;
+      document.querySelector(".skip-link").textContent = skipTranslations[lang];
       document.getElementById("launchLink").href = "https://script.google.com/macros/s/AKfycbyvKeMwT1B9j5EIUXdZvH2wcZFKVup92bfAGNDWx-CaqrbxYdbG0AzofIeGe9oL-xjmYw/exec?lang=" + lang;
       document.querySelectorAll(".language-btn").forEach(function (button) {
         const active = button.dataset.language === lang;
@@ -244,43 +194,6 @@
 
     document.querySelectorAll(".language-btn").forEach(function (button) {
       button.addEventListener("click", function () { setLandingLanguage(button.dataset.language); });
-    });
-    document.getElementById("soundCheck").addEventListener("click", function () {
-      const lang = document.documentElement.lang === "ar" ? "ara" : (document.documentElement.lang === "ru" ? "rus" : (document.documentElement.lang === "ko" ? "kor" : "eng"));
-      const a = accessTranslations[lang] || accessTranslations.eng;
-      const audio = document.getElementById("soundCheckAudio");
-      const button = document.getElementById("soundCheck");
-      let stuck = null;
-      const restoreSoundButton = function () {
-        clearTimeout(stuck);
-        button.disabled = false;
-        button.textContent = a.sound;
-      };
-      button.disabled = true;
-      button.textContent = a.playingLabel;
-      audio.currentTime = 0;
-      audio.onended = function () { restoreSoundButton(); document.getElementById("soundStatus").textContent = ""; };
-      // A sound that never loads must not leave the button stuck.
-      stuck = setTimeout(function () {
-        audio.pause();
-        restoreSoundButton();
-        document.getElementById("soundStatus").textContent = a.soundProblem;
-      }, 15000);
-      audio.onerror = function () { restoreSoundButton(); document.getElementById("soundStatus").textContent = a.soundProblem; };
-      audio.play().then(function () { document.getElementById("soundStatus").textContent = a.playing; }).catch(function () { restoreSoundButton(); document.getElementById("soundStatus").textContent = a.soundProblem; });
-    });
-    document.getElementById("readInstructions").addEventListener("click", function () {
-      const lang = document.documentElement.lang === "ar" ? "ara" : (document.documentElement.lang === "ru" ? "rus" : (document.documentElement.lang === "ko" ? "kor" : "eng"));
-      const a = accessTranslations[lang] || accessTranslations.eng;
-      const status = document.getElementById("soundStatus");
-      if (!("speechSynthesis" in window)) { status.textContent = a.soundProblem; return; }
-      status.textContent = a.reading;
-      window.speechSynthesis.cancel();
-      const message = new SpeechSynthesisUtterance(a.steps.join(" "));
-      message.lang = document.documentElement.lang;
-      // The "reading" message is cleared when reading stops.
-      message.onend = message.onerror = function () { if (status.textContent === a.reading) status.textContent = ""; };
-      window.speechSynthesis.speak(message);
     });
     let savedLanguage = "eng";
     try { savedLanguage = localStorage.getItem("rak_interface_language") || "eng"; } catch (error) {}
