@@ -110,8 +110,8 @@
           <p class="sound-status" id="soundStatus" role="status" aria-live="polite"></p>
           <audio id="soundCheckAudio" preload="none" src="audio/sound-check.mp3"></audio>
         </section>
-        <p id="signinInstructions">Use your <strong>@rakacademy.net</strong> Google account. If your browser has more than one Google account, choose your school account when prompted. Personal Google accounts cannot access the assessment.</p>
-        <a id="launchLink" class="launch" href="https://script.google.com/macros/s/AKfycbyvKeMwT1B9j5EIUXdZvH2wcZFKVup92bfAGNDWx-CaqrbxYdbG0AzofIeGe9oL-xjmYw/exec?lang=eng">Choose RAK Academy Google Account</a>
+        <p id="signinInstructions">Enter the digits before @ in your school email and the password from your teacher. You do not need to sign in to Google.</p>
+        <a id="launchLink" class="launch" href="https://script.google.com/macros/s/AKfycbyvKeMwT1B9j5EIUXdZvH2wcZFKVup92bfAGNDWx-CaqrbxYdbG0AzofIeGe9oL-xjmYw/exec?lang=eng">Open assessment</a>
         <p class="signin-status" id="signinStatus">You will continue to the secure assessment portal.</p>
       </section>
     </div>
@@ -129,9 +129,9 @@
         save: "<strong>Auto-save:</strong> Your progress is saved automatically throughout the test.",
         independent: "<strong>Independent Work:</strong> Complete the assessment independently. Copying, pasting or leaving the active screen is recorded.",
         privacy: "🔒 Assessment results are stored securely and reviewed by authorised school staff.",
-        signin: "RAK Academy Sign-In",
-        signinInstructions: "Use your <strong>@rakacademy.net</strong> Google account. If your browser has more than one Google account, choose your school account when prompted. Personal Google accounts cannot access the assessment.",
-        button: "Choose RAK Academy Google Account",
+        signin: "Student sign-in",
+        signinInstructions: "Enter the digits before @ in your school email and the password from your teacher. You do not need to sign in to Google.",
+        button: "Open assessment",
         status: "You will continue to the secure assessment portal."
       },
       ara: {
@@ -145,9 +145,9 @@
         save: "<strong>الحفظ التلقائي:</strong> يُحفظ تقدمك تلقائيًا طوال الاختبار.",
         independent: "<strong>العمل المستقل:</strong> أكمل التقييم بشكل مستقل. يتم تسجيل النسخ أو اللصق أو مغادرة الشاشة النشطة.",
         privacy: "🔒 يتم تخزين نتائج التقييم بأمان ومراجعتها من قبل موظفي المدرسة المصرح لهم.",
-        signin: "تسجيل الدخول إلى أكاديمية رأس الخيمة",
-        signinInstructions: "استخدم حساب Google المدرسي الذي ينتهي بـ <strong>@rakacademy.net</strong>. إذا كان المتصفح مسجلاً بأكثر من حساب Google، فاختر حساب المدرسة عند مطالبتك. لا يمكن للحسابات الشخصية الوصول إلى التقييم.",
-        button: "اختر حساب Google الخاص بأكاديمية رأس الخيمة",
+        signin: "تسجيل دخول الطالب",
+        signinInstructions: "أدخل الأرقام قبل @ في بريدك المدرسي وكلمة المرور التي أعطاها لك معلمك. لا تحتاج إلى تسجيل الدخول إلى Google.",
+        button: "فتح التقييم",
         status: "ستنتقل إلى بوابة التقييم الآمنة."
       },
       rus: {
@@ -161,9 +161,9 @@
         save: "<strong>Автосохранение:</strong> Ваш прогресс автоматически сохраняется в течение всего теста.",
         independent: "<strong>Самостоятельная работа:</strong> Выполняйте тест самостоятельно. Копирование, вставка и уход с активного экрана регистрируются.",
         privacy: "🔒 Результаты оценивания хранятся в защищённом виде и доступны уполномоченным сотрудникам школы.",
-        signin: "Вход в RAK Academy",
-        signinInstructions: "Используйте школьный аккаунт Google <strong>@rakacademy.net</strong>. Если в браузере открыто несколько аккаунтов Google, выберите школьный аккаунт. Личные аккаунты Google не могут получить доступ к тесту.",
-        button: "Выбрать аккаунт Google RAK Academy",
+        signin: "Вход для ученика",
+        signinInstructions: "Введите цифры перед @ в школьной почте и пароль, выданный учителем. Вход в Google не требуется.",
+        button: "Открыть тест",
         status: "Вы перейдёте на защищённый портал оценивания."
       },
       kor: {
@@ -177,9 +177,9 @@
         save: "<strong>자동 저장:</strong> 시험을 보는 동안 진행 상황이 자동으로 저장됩니다.",
         independent: "<strong>독립 수행:</strong> 평가를 혼자서 완료하세요. 복사, 붙여넣기 또는 활성 화면을 벗어나는 행동이 기록됩니다.",
         privacy: "🔒 평가 결과는 안전하게 저장되며 권한이 있는 학교 직원만 검토합니다.",
-        signin: "RAK Academy 로그인",
-        signinInstructions: "<strong>@rakacademy.net</strong> 학교 Google 계정을 사용하세요. 브라우저에 여러 Google 계정이 로그인되어 있다면 안내가 표시될 때 학교 계정을 선택하세요. 개인 Google 계정으로는 평가에 접속할 수 없습니다.",
-        button: "RAK Academy Google 계정 선택",
+        signin: "학생 로그인",
+        signinInstructions: "학교 이메일의 @ 앞 숫자와 선생님에게 받은 비밀번호를 입력하세요. Google 로그인은 필요하지 않습니다.",
+        button: "평가 열기",
         status: "보안 평가 포털로 이동합니다."
       }
     };
@@ -233,10 +233,7 @@
       document.getElementById("startSteps").innerHTML = a.steps.map(function (step) { return "<li>" + step + "</li>"; }).join("");
       document.getElementById("soundCheck").textContent = a.sound;
       document.getElementById("readInstructions").textContent = a.read;
-      // Google's account chooser opens first, so pupils signed in to several
-      // accounts pick their school one instead of being sent in with another.
-      document.getElementById("launchLink").href = "https://accounts.google.com/AccountChooser?continue=" +
-        encodeURIComponent("https://script.google.com/macros/s/AKfycbyvKeMwT1B9j5EIUXdZvH2wcZFKVup92bfAGNDWx-CaqrbxYdbG0AzofIeGe9oL-xjmYw/exec?lang=" + lang);
+      document.getElementById("launchLink").href = "https://script.google.com/macros/s/AKfycbyvKeMwT1B9j5EIUXdZvH2wcZFKVup92bfAGNDWx-CaqrbxYdbG0AzofIeGe9oL-xjmYw/exec?lang=" + lang;
       document.querySelectorAll(".language-btn").forEach(function (button) {
         const active = button.dataset.language === lang;
         button.classList.toggle("active", active);
